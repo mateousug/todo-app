@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('all');
 
   // Cargar todos al montar el componente
   useEffect(() => {
@@ -36,6 +37,7 @@ function TodoList() {
           completed: !completed
         }),
       });
+
       if (response.ok) {
         // Actualizar estado local
         setTodos(todos.map(todo =>
@@ -48,6 +50,8 @@ function TodoList() {
       alert('Error al actualizar');
     }
   };
+
+  // DELETE - Eliminar todo
   const deleteTodo = async (id) => {
     if (!window.confirm('¿Eliminar este todo?')) {
       return;
@@ -63,36 +67,66 @@ function TodoList() {
         setTodos(todos.filter(todo => todo.id !== id));
       }
     } catch (error) {
-      alert('Error al eliminar el todo');
+      alert('Error al eliminar');
     }
   };
+
+  const filteredTodos = todos.filter(todo => {
+    if (filter === 'completed') return todo.completed;
+    if (filter === 'pending') return !todo.completed;
+    return true; // all
+  });
+
   if (loading) {
     return <div>Cargando...</div>;
   }
+
   return (
     <div>
       <h2>Mis Todos</h2>
 
+      <div style={{ marginBottom: '15px' }}>
+        <button
+          onClick={() => setFilter('all')}
+          style={{ fontWeight: filter === 'all' ? 'bold' : 'normal' }}
+        >
+          Todos
+        </button>
+        <button
+          onClick={() => setFilter('completed')}
+          style={{ fontWeight: filter === 'completed' ? 'bold' : 'normal' }}
+        >
+          Completados
+        </button>
+        <button
+          onClick={() => setFilter('pending')}
+          style={{ fontWeight: filter === 'pending' ? 'bold' : 'normal' }}
+        >
+          Pendientes
+        </button>
+      </div>
+
       <Link to="/add">+ Agregar Nuevo Todo</Link>
 
-      {todos.length === 0 ? (
+      {filteredTodos.length === 0 ? (
         <p>No hay todos. <Link to="/add">Crear el primero</Link></p>
       ) : (
         <ul>
-          {todos.map(todo => (
+          {filteredTodos.map(todo => (
             <li key={todo.id}>
               <input
                 type="checkbox"
                 checked={todo.completed}
                 onChange={() => toggleComplete(todo.id, todo.completed)}
               />
-
               <span style={{
                 textDecoration: todo.completed ? 'line-through' : 'none'
               }}>
                 {todo.title}
               </span>
-
+              <Link to={`/edit/${todo.id}`}>
+                <button style={{ background: '#ffc107' }}>Editar</button>
+              </Link>
               <button onClick={() => deleteTodo(todo.id)}>
                 Eliminar
               </button>
