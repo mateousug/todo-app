@@ -36,3 +36,15 @@ function TodoList() {
           completed: !completed
         }),
       });
+      if (response.ok) {
+        // Actualizar estado local
+        setTodos(todos.map(todo =>
+          todo.id === id
+            ? { ...todo, completed: !completed }
+            : todo
+        ));
+      }
+    } catch (error) {
+      alert('Error al actualizar');
+    }
+  };
