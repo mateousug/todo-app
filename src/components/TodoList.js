@@ -66,3 +66,6 @@ function TodoList() {
       alert('Error al eliminar');
     }
   };
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
