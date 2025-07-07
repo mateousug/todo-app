@@ -68,3 +68,31 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# 📝 Todo App en React
+Una aplicación básica de lista de tareas usando React, React Router y JSON Server como API REST simulada.
+
+## 🎯 Objetivos
+
+Este proyecto fue creado como práctica para aprender:
+
+- Manejo de rutas con React Router.
+- Creación y validación de formularios controlados en React.
+- Consumo de APIs REST usando `fetch`.
+- Manejo de estados (`useState`, `useEffect`).
+- Lógica básica CRUD en el frontend.
+
+## 🚀 Cómo ejecutar el proyecto
+
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/tuusuario/todo-react.git
+cd todo-react
+
+
+npm run server
+# Esto iniciará en http://localhost:3001
+
+npm start
+# Esto iniciará en http://localhost:3000
+
