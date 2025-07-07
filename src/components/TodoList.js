@@ -63,7 +63,7 @@ function TodoList() {
         setTodos(todos.filter(todo => todo.id !== id));
       }
     } catch (error) {
-      alert('Error al eliminar');
+      alert('Error al eliminar el todo');
     }
   };
   if (loading) {
