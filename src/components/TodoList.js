@@ -48,3 +48,21 @@ function TodoList() {
       alert('Error al actualizar');
     }
   };
+  const deleteTodo = async (id) => {
+    if (!window.confirm('¿Eliminar este todo?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3001/todos/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Remover del estado local
+        setTodos(todos.filter(todo => todo.id !== id));
+      }
+    } catch (error) {
+      alert('Error al eliminar');
+    }
+  };
