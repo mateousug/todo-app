@@ -69,3 +69,39 @@ function TodoList() {
   if (loading) {
     return <div>Cargando...</div>;
   }
+  return (
+    <div>
+      <h2>Mis Todos</h2>
+
+      <Link to="/add">+ Agregar Nuevo Todo</Link>
+
+      {todos.length === 0 ? (
+        <p>No hay todos. <Link to="/add">Crear el primero</Link></p>
+      ) : (
+        <ul>
+          {todos.map(todo => (
+            <li key={todo.id}>
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => toggleComplete(todo.id, todo.completed)}
+              />
+
+              <span style={{
+                textDecoration: todo.completed ? 'line-through' : 'none'
+              }}>
+                {todo.title}
+              </span>
+
+              <button onClick={() => deleteTodo(todo.id)}>
+                Eliminar
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export default TodoList;
